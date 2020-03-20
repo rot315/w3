@@ -1,0 +1,607 @@
+<html>
+<title>W3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+<script src="ruokalistat.js"></script>
+<script>
+  window.onload = setInterval(clock, 1000);
+
+
+  function clock() {
+    let d = new Date();
+
+    let date = d.getDate();
+
+    let m = d.getMonth();
+    let month = m + 1;
+
+    let day = d.getDay();
+    let dayarr = ["Su", "Ma", "Ti", "Ke", "To", "Pe", "La"];
+    day = dayarr[day];
+
+    let hour = d.getHours();
+    let min = String(d.getMinutes()).padStart(2, '0');
+    let sec = String(d.getSeconds()).padStart(2, '0');
+
+    document.getElementById("date").innerHTML = day + " " + date + ". " + month + ".";
+    document.getElementById("time").innerHTML = hour + ":" + min + ":" + sec;
+  }
+
+  function weatherBalloon(cityID) {
+    let apiKey = 'c376e46a741dbd0dfc7a757a78547c06';
+    fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID + '&appid=' + apiKey)
+    .then(function(resp) {
+      return resp.json()
+    }) // Convert data to json
+        .then(function(data) {
+          drawWeather(data);
+        })
+        .catch(function() {
+      // catch any errors
+    });
+  }
+
+  function drawWeather(d) {
+    var celcius = Math.round(parseFloat(d.main.temp) - 273.15);
+    var wind = d.wind.speed;
+    var icon = ("<img src='http://openweathermap.org/img/w/" + d.weather[0].icon + ".png'>");
+    document.getElementById('description').innerHTML = d.weather[0].description;
+    document.getElementById('temp').innerHTML = celcius + '&deg;';
+    document.getElementById('wind').innerHTML = wind + ' m/s';
+    document.getElementById('icons').innerHTML = icon;
+  }
+
+  window.onload = function() {
+    weatherBalloon(830153);
+  };
+
+
+</script>
+<style>
+    body,
+    html {
+        height: 100%;
+        background-image: linear-gradient(45deg, pink, blue);
+        position: relative;
+        font-family: 'Montserrat', 'sans-serif';
+    }
+
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    #ko p {
+        margin-top: 1.5vh;
+        margin-bottom: 0;
+    }
+
+    .popup .popuptext {
+        visibility: hidden;
+        width: 160px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -80px;
+    }
+
+
+    .popup .popuptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    /* Toggle this class - hide and show the popup */
+    .popup .show {
+        visibility: visible;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s;
+    }
+
+    .mySlides {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+
+    }
+
+
+    #box {
+        width: 20vw;
+        height: 5vh;
+        background-color: white;
+        color: black;
+        border-radius: 0.5vw;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+
+    #aika {
+        display: flex;
+        flex-direction: row;
+        font-size: 30px;
+        justify-content: space-around;
+        position: relative;
+        bottom: 4vh;
+    }
+
+    #box2 {
+        width: 50vw;
+        height: 65vh;
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+        position: relative;
+        right: 4vw;
+        top: 6vh;
+    }
+
+    ul {
+        font-size: 1.8vh;
+    }
+
+    ul>div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    ul>div>ul:first-of-type {
+        margin-top: 0.7vh;
+        width: 30vw;
+
+    }
+
+    ul>div>ul:nth-child(2n+0) {
+        color: red;
+        width: 5vw;
+    }
+
+    ul>div>ul:nth-child(3n+0) {
+        width: 17vw;
+        float: right;
+        margin-top: 1vh;
+    }
+
+    #paa {
+        text-align: center;
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+    #mlogo {
+        position: relative;
+        background-image: url('https://mediaexchange.metropolia.fi/wp-content/uploads/metropolialogotiny.png');
+        top: 2%;
+        left: 1%;
+        width: 5vw;
+        height: 5vw;
+        background-size: cover;
+    }
+
+    #box3 {
+        position: relative;
+        left: 20vw;
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+    }
+    #video{
+        width: 60vw;
+        height: 60vh;
+        border-radius: 0.5vw;
+        position: relative;
+        top: 8vh;
+        right: 8vw;
+    }
+
+    @media only screen and (min-width: 1070px) {
+
+        #aika{
+            font-size: 2vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-content: center;
+        }
+
+        div>div>strong {
+
+            font-size: 2.5vh;
+
+        }
+
+        #content{
+            font-size: 3vh;
+        }
+
+        #temp{
+            font-size: 3vh;
+        }
+        h1>img{
+            width: 200px;
+            height: 200px
+        }
+
+
+
+        #box2 {
+            width: 50vw;
+            height: 65vh;
+            background-color: white;
+            color: black;
+            border-radius: 0.5vw;
+        }
+
+        ul {
+            font-size: 2vh;
+        }
+
+        ul>div {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+        ul>div>ul:first-of-type {
+            margin-top: 0.7vh;
+            width: 30vw;
+
+        }
+
+        ul>div>ul:nth-child(2n+0) {
+            color: red;
+            width: 5vw;
+        }
+
+        ul>div>ul:nth-child(3n+0) {
+            width: 17vw;
+            float: right;
+            margin-top: 1vh;
+        }
+
+        #paa {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+
+        #box3 {
+            position: relative;
+            left: 11vw;
+            top: 6.1vh;
+            width: 20vw;
+            height: 65vh;
+            background-color: white;
+            color: black;
+            border-radius: 0.5vw;
+            text-align: center;
+
+        }
+        #video{
+            width: 60vw;
+            height: 60vh;
+            border-radius: 0.5vw;
+            position: relative;
+            top: 9vh;
+            right: 10vw;
+        }
+    }
+
+    @media only screen and (min-width: 2000px) {
+
+        
+        #aika{
+            font-size: 2.5vw;
+            position: relative;
+            bottom: 4.8vh;
+        }
+
+        #box {
+            width: 22vw;
+            height: 6vh;
+            background-color: white;
+            color: black;
+            border-radius: 0.5vw;
+            position: absolute;
+            right: 2vw;
+            top: 2vh;
+        }
+
+        div>div>strong {
+
+            font-size: 2.5vh;
+
+        }
+
+        #content{
+            font-size: 4vh;
+        }
+
+        #temp{
+            font-size: 4vh;
+        }
+        h1>img{
+            width: 400px;
+            height: 400px
+        }
+
+
+        #box2 {
+            width: 50vw;
+            height: 65vh;
+            background-color: white;
+            color: black;
+            border-radius: 0.5vw;
+            position: relative;
+            right: 16vw;
+            top: 7vh;
+        }
+
+        ul {
+            font-size: 2vh;
+        }
+
+        ul>div {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+        ul>div>ul:first-of-type {
+            margin-top: 0.7vh;
+            width: 30vw;
+
+        }
+
+        ul>div>ul:nth-child(2n+0) {
+            color: red;
+            width: 5vw;
+        }
+
+        ul>div>ul:nth-child(3n+0) {
+            width: 17vw;
+            float: right;
+            margin-top: 1vh;
+        }
+
+        #paa {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+
+        #box3 {
+            width: 20vw;
+            height: 65vh;
+            background-color: white;
+            color: black;
+            border-radius: 0.5vw;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            left: 2vw;
+            top: 8vh;
+        }
+        #video{
+
+            position: relative;
+            right: 20vw;
+            top:10vh;
+        }
+    }
+
+
+    #la{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Montserrat', 'sans-serif';
+        font-weight: bold;
+        letter-spacing: 0.08vw;
+        position: relative;
+        bottom: 2vh;
+
+    }
+    #la p{
+
+        color: darkblue;
+        font-size:2.2vh;
+
+    }
+
+    #lo{
+        display: flex;
+        flex-direction: row;
+    }
+    #yk{
+        background-image: url("tarpeellinen.png");
+        background-size:100% auto;
+        background-repeat: no-repeat;
+        height: 65vh;
+        width: 66vw;
+        position: relative;
+        left: 21vw;
+        border-radius: 5px;
+
+    }
+    #ka{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        right: 55vw;
+    }
+    #ki{
+        width: 20vw;
+        height: 5vh;
+    }
+    #ko{
+
+        background: whitesmoke;
+        padding: 1vh;
+        height: 22vh;
+        width: 40vw;
+        border-radius: 5px;
+        position: relative;
+        top: 2vh;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+    }
+    #ne{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 7vh;
+        width: 66vw;
+    }
+    #vi{
+        display: flex;
+        background: blue;
+        height: 10vh;
+        width: 80vw;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+    }
+</style>
+
+<body>
+
+<div id="mlogo" >
+
+</div>
+
+<div id="box">
+    <div id="aika">
+        <p id="date"></p>
+        <p id="time"></p>
+    </div>
+</div>
+
+<div class="w3-content w3-section" style="max-width:800px">
+    <div class="mySlides w3-animate-right">
+            <div id="box2">
+                <div id="paa"></div>
+                <ul id="pruoka"></ul>
+                <div class="popup" onclick="myFunction()" style="background-color: darkblue; width: 1vw; height: 1vh;">
+                    <span class="popuptext" id="myPopup">
+                        <button onclick="myy()">myyrmäki</button>
+                        <button onclick="myl()">myllypuro</button>
+                    </span>
+                </div>
+            </div>
+    </div>
+    <div class="mySlides w3-animate-right">
+            <video id="video" controls autoplay loop>
+                <source src='taikamuna.mp4' type="video/mp4">
+            </video>
+    </div>
+    <div class="mySlides w3-animate-right">
+        <div id="box3">
+            <div id="content">
+                <h1 id="icons"></h1>
+                <div id="description"></div>
+                <h1 id="temp"></h1>
+                <p id="wind"><p>
+            </div>
+        </div>
+    </div>
+    <div class="mySlides w3-animate-right">
+        <div id="la">
+            <div id="ne">
+                <h3 style="color: lightblue;font-size:1.8vw;">
+                    FULBRIGHT FINLAND
+                </h3>
+                <div style="width: 1vw"></div>
+                <h3 style="color: darkblue;font-size:2vw;">
+                    UNDERGRADUATE GRANT
+                </h3>
+            </div>
+            <div id="lo">
+                <div id ="yk"></div>
+                <div id="ka">
+                    <div id="ki"></div>
+                    <div id="ko">
+                        <p>Stipendiohjelma yhdysvaltoihin kanditason opintoihin</p>
+                        <p>Stipendia voi hakea vaihto-, free mover- tai tutkinto-opintoihin lukuvuodelle 2020 - 2021</p>
+                        <p>Haku paattyy 6.4.2020 klo 10!</p>
+                    </div>
+                </div>
+            </div>
+            <div id="vi">
+                <p style="color: #fefefe">
+                    www.fulbright.fi/undergraduate
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+    </div>
+</div>
+
+<script>
+  var myIndex = 0;
+  carousel();
+
+  function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    myIndex++;
+    if (myIndex > x.length) {
+      myIndex = 1
+    }
+    x[myIndex - 1].style.display = "block";
+    setTimeout(carousel, 15000);
+  }
+
+  function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
+</script>
+
+</body></html>
+
